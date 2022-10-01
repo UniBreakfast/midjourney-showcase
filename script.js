@@ -18,6 +18,7 @@ function buildMasonryGallery(data) {
 
     image.src = `images/${id}.png`
     image.alt = image.title = prompt
+    image.onerror = () => image.remove()
     gallery.append(image)
   }
 }
