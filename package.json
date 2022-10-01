@@ -1,0 +1,20 @@
+{
+  "name": "midjourney-showcase",
+  "version": "1.0.0",
+  "description": "To start it up, run `npm start` in the root directory.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UniBreakfast/midjourney-showcase.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UniBreakfast/midjourney-showcase/issues"
+  },
+  "homepage": "https://github.com/UniBreakfast/midjourney-showcase#readme"
+}
