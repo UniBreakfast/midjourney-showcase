@@ -11,31 +11,16 @@ function getLocalDBdata() {
 
 function buildMasonryGallery(data) {
   const gallery = document.querySelector('#gallery')
-  const rows = gallery.children
-  const imagesPerRow = 3
 
-  gallery.style.setProperty('--images-per-row', imagesPerRow)
+  for (const item of data) {
+    const { id, prompt } = item
+    const image = document.createElement('img')
 
-  let i = 0
-
-  for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
-    const row = rows[rowIndex]
-
-    for (let imageIndex = 0; imageIndex < imagesPerRow; imageIndex++) {
-      const imageData = data[i++]
-      const { id, prompt } = imageData
-      const image = document.createElement('img')
-
-      image.src = `images/${id}.png`
-      image.alt = image.title = prompt
-
-      row.append(image)
-    }
+    image.src = `images/${id}.png`
+    image.alt = image.title = prompt
+    gallery.append(image)
   }
 }
-
-
-
 
 function getImageDimensions(image) {
   const { naturalWidth, naturalHeight } = image

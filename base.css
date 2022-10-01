@@ -1,14 +1,18 @@
-#gallery {
-  width: 100%;
+body {
+  overflow: hidden;
 }
 
-#gallery>.row {
-  /* display: grid; */
-  /* grid-template-columns: repeat(var(--images-per-row), auto); */
-  /* grid-auto-rows: 75vh; */
+#gallery {
+  width: 100%;
+  display: flex;
+  gap: 3px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: calc(100vh + 11px);
 }
 
 #gallery img {
+  flex-shrink: 0;
   display: block;
-  /* height: 100%; */
+  height: calc(100vh - 11px);
 }

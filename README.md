@@ -1,12 +1,16 @@
 # A tool to get images info from Midjourney API, and save it and images themselves locally
 
-236 images in `localDB.json` and counting. It's 1GB of images already.
+236 images in `localDB.json` and counting. It's 1GB of images already!
 
-To start it up, run `npm start` in the root directory. It will create an `images` folder in the root directory, and save all new published prompts and images in it. It will also index all the images in a `localDB.json` file. Images known before (i.e. already in the `localDB.json` file) will not be downloaded again.
+First you'll need to download this repository (you can also clone it with git of course).
+
+Afterwards to start it up, run `npm start` in its root directory. It will create an `images` folder in the root directory, and save all new published prompts and images in it. It will also index all the images in a `localDB.json` file. Images known before (i.e. already in the `localDB.json` file) will not be downloaded again.
 
 If you actually don't have all known images downloaded yet, you can run `npm run fetch` to download all images mentioned in the `localDB.json` file along with the newly published. Or you can delete the `images` folder and run `npm start` to download all images. That's what will happen the first time you run the tool.
 
 In order to accumulate more info/images you'll need to run `npm start` regularly (1-3 times a day seems enough to me 😁).
+
+You can view downloaded images with `index.html` but you'll have to open it while running the Live Server or something like that (I use the VScode extension by the same name - Live Server).
 
 ![image](https://user-images.githubusercontent.com/19654456/193405974-4b918d10-d625-463a-bbe2-ef42e3898dbc.png)
 ![image](https://user-images.githubusercontent.com/19654456/193406017-7fcaac3d-b8c2-4c6f-aa31-4ba576d629e3.png)
