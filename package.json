@@ -4,7 +4,8 @@
   "description": "To start it up, run `npm start` in the root directory.",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start": "node index",
+    "fetch": "node index all"
   },
   "repository": {
     "type": "git",

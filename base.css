@@ -1,0 +1,14 @@
+#gallery {
+  width: 100%;
+}
+
+#gallery>.row {
+  /* display: grid; */
+  /* grid-template-columns: repeat(var(--images-per-row), auto); */
+  /* grid-auto-rows: 75vh; */
+}
+
+#gallery img {
+  display: block;
+  /* height: 100%; */
+}

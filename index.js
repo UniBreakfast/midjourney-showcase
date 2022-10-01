@@ -5,6 +5,8 @@ const dbFileName = 'localDB.json'
 const imageFolder = 'images'
 const baseURL = 'https://www.midjourney.com/api/public-feed/'
 
+let mode = process.argv[2]
+
 main()
 
 async function main() {
@@ -20,9 +22,24 @@ async function main() {
 
   includeTo(localDB, newData)
 
-  await forAll(storeLocalDB(localDB), downloadImages(newData))
+  await createImagesFolder()
 
-  console.log(`Downloaded ${newData.length} new images`)
+  const dataToFetch = mode === 'all' ? localDB : newData
+
+  await forAll(storeLocalDB(localDB), downloadImages(dataToFetch))
+
+  displayResults(dataToFetch, localDB)
+}
+
+async function createImagesFolder() {
+  try {
+    await mkdir(imageFolder)
+    mode = 'all'
+  } catch {}
+}
+
+function displayResults(data, db) {
+  console.log(`Downloaded ${data.length} new images (${db.length - data.length} -> ${db.length})`)
 }
 
 function forAll(...promises) {
@@ -71,13 +88,24 @@ function generateLinks() {
   return links
 }
 
-async function getDataFrom(link) {
+async function getDataFrom(link, tries = 3) {
   return new Promise((resolve, reject) => {
     get(link, async response => {
-      const json = await getBody(response)
-      const data = JSON.parse(json)
+      try {
+        const json = await getBody(response)
+        const data = JSON.parse(json)
+        resolve(data)
+      } catch {
+        if (tries) {
+          try {
+            resolve(await getDataFrom(link, tries - 1))
+          } catch {
+            reject()
+          }
+        }
 
-      resolve(data)
+        reject()
+      }
     }).on('error', reject)
   })
 }
@@ -97,10 +125,6 @@ async function storeLocalDB(localDB) {
 }
 
 async function downloadImages(newData) {
-  try {
-    await mkdir(imageFolder)
-  } catch { }
-
   return await forAll(...newData.map(downloadImage))
 }
 
