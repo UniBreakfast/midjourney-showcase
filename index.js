@@ -38,8 +38,14 @@ async function createImagesFolder() {
   } catch {}
 }
 
-function displayResults(data, db) {
+async function displayResults(data, db) {
   console.log(`Downloaded ${data.length} new images (${db.length - data.length} -> ${db.length})`)
+
+  let readme = await readFile('README.md', 'utf8')
+
+  readme = readme.replace(/\d{3,}/, db.length)
+
+  await writeFile('README.md', readme)
 }
 
 function forAll(...promises) {
