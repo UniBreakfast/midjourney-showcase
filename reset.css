@@ -44,3 +44,7 @@ textarea {
 img, canvas {
   display: block;
 }
+
+[hidden] {
+  display: none !important;
+}

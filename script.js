@@ -15,12 +15,16 @@ function buildGallery(data) {
 
   const path = location.host.endsWith('.github.io') ? '' : imageFolder
 
-  for (const item of data) {
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i]
     const { id, prompt, imageURL } = item
     const image = document.createElement('img')
 
+    // if (i > 10) image.hidden = true
+
     image.src = path ? `${path}/${id}.png` : imageURL
     image.alt = image.title = prompt
+    image.loading = "lazy"
     image.onerror = () => image.remove()
     gallery.append(image)
   }
