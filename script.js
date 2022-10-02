@@ -1,6 +1,7 @@
 const dbFileName = 'localDB.json'
+const imageFolder = 'images'
 
-getLocalDBdata().then(buildMasonryGallery).then(() => {
+getLocalDBdata().then(buildGallery).then(() => {
   document.querySelector('img').onload = (e) => console.log(getImageDimensions(e.target))
 
 })
@@ -9,14 +10,16 @@ function getLocalDBdata() {
   return fetch(dbFileName).then(response => response.json())
 }
 
-function buildMasonryGallery(data) {
+function buildGallery(data) {
   const gallery = document.querySelector('#gallery')
 
+  const path = location.host.endsWith('.github.io') ? '' : imageFolder
+
   for (const item of data) {
-    const { id, prompt } = item
+    const { id, prompt, imageURL } = item
     const image = document.createElement('img')
 
-    image.src = `images/${id}.png`
+    image.src = path ? `${path}/${id}.png` : imageURL
     image.alt = image.title = prompt
     image.onerror = () => image.remove()
     gallery.append(image)
