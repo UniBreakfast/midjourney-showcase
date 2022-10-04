@@ -1,6 +1,6 @@
 # A tool to get images info from Midjourney API, and save it and images themselves locally
 
-291 images in `localDB.json` and counting. It's over 1GB of images already!
+333 images in `localDB.json` and counting. It's over 1GB of images already!
 
 First you'll need to download this repository (you can also clone it with git of course).
 
