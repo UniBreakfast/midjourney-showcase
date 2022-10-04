@@ -4,6 +4,7 @@ const { get } = require('https')
 const dbFileName = 'localDB.json'
 const imageFolder = 'images'
 const baseURL = 'https://www.midjourney.com/api/public-feed/'
+const concurrentDownloads = 1
 
 let mode = process.argv[2]
 
@@ -35,7 +36,7 @@ async function createImagesFolder() {
   try {
     await mkdir(imageFolder)
     mode = 'all'
-  } catch {}
+  } catch { }
 }
 
 async function displayResults(data, db) {
@@ -131,7 +132,15 @@ async function storeLocalDB(localDB) {
 }
 
 async function downloadImages(newData) {
-  return await forAll(...newData.map(downloadImage))
+  for (let i = 0; i < newData.length; i += concurrentDownloads) {
+    const items = [newData[i]]
+
+    for (let j = 1; j < concurrentDownloads; j++) {
+      if (newData[i + j]) items.push(newData[i + j])
+    }
+
+    await forAll(...items.map(downloadImage))
+  }
 }
 
 async function downloadImage({ id, imageURL, author, prompt }) {
